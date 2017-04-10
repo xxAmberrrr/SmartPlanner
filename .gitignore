@@ -1,5 +1,5 @@
 GoogleCalendar/vendor
-composer.json
-composer.lock
-composer.phar
-client_secret.json
+GoogleCalendar/composer.json
+GoogleCalendar/composer.lock
+GoogleCalendar/composer.phar
+GoogleCalendar/client_secret.json
