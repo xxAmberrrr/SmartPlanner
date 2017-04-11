@@ -102,15 +102,47 @@ $service = new Google_Service_Calendar($client);
 $calendarList = $service->calendarList->listCalendarList();
 
 $calendars = array();
+$calendarsSelected = array();
+
+array_push($calendarsSelected, '228iua7de1js8if439cgsgk4dc@group.calendar.google.com'); //MT3C
+array_push($calendarsSelected, 'xxamberrrr12@gmail.com'); //Amber Hoogland
+array_push($calendarsSelected, 'ihl73aqpljlu9u67srth0657s8@group.calendar.google.com'); //School
+array_push($calendarsSelected, 'csj8vhvrbdsl01m8vnjihpfve4@group.calendar.google.com'); //SmartPlanner
+array_push($calendarsSelected, 'k6m04v2tp7ortm5ol5kg8clkuk@group.calendar.google.com'); //Werk
+
+$optParams = array(
+  'orderBy' => 'startTime',
+  'singleEvents' => TRUE,
+  'timeMin' => date('c'),
+);
 
 while(true) {
-  foreach ($calendarList->getItems() as $calendarListEntry) {
-    array_push($calendars, $calendarListEntry->getId());
-  }
+  // foreach ($calendarList->getItems() as $calendarListEntry) {
+  //   array_push($calendarsSelected, $calendarListEntry->getId());
+  // }
 
-  for($i = 0; $i < count($calendars); $i++) {
+  for($i = 0; $i < count($calendarsSelected); $i++) {
+    $results = $service->events->listEvents($calendarsSelected[$i], $optParams);
 
-    print_r($service->events->listEvents($calendars[$i]));
+    foreach($results->getItems() as $event) {
+      $start = null;
+
+      if(isset($event->start->dateTime)) {
+        $start = $event->start->dateTime;
+      }
+
+      if(empty($start)) {
+        if(isset($event->start->date)) {
+          $start = $event->start->date;
+        }
+      }
+
+      printf("%s (%s)\n", $event->getSummary(), $start);
+    }
+
+    // for($j = 0; $j < count($results); $j++) {
+    //   print_r($results[$j]->getSummary());
+    // }
   }
 
   $pageToken = $calendarList->getNextPageToken();
