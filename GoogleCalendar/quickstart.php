@@ -76,24 +76,50 @@ $client = getClient();
 $service = new Google_Service_Calendar($client);
 
 // Print the next 10 events on the user's calendar.
-$calendarId = 'primary';
-$optParams = array(
-  'maxResults' => 10,
-  'orderBy' => 'startTime',
-  'singleEvents' => TRUE,
-  'timeMin' => date('c'),
-);
-$results = $service->events->listEvents($calendarId, $optParams);
+// $calendarId = 'csj8vhvrbdsl01m8vnjihpfve4@group.calendar.google.com';
+// $optParams = array(
+//   'maxResults' => 10,
+//   'orderBy' => 'startTime',
+//   'singleEvents' => TRUE,
+//   'timeMin' => date('c'),
+// );
+// $results = $service->events->listEvents($calendarId, $optParams);
 
-if (count($results->getItems()) == 0) {
-  print "No upcoming events found.\n";
-} else {
-  print "Upcoming events:\n";
-  foreach ($results->getItems() as $event) {
-    $start = $event->start->dateTime;
-    if (empty($start)) {
-      $start = $event->start->date;
-    }
-    printf("%s (%s)\n", $event->getSummary(), $start);
+// if (count($results->getItems()) == 0) {
+//   print "No upcoming events found.\n";
+// } else {
+//   print "Upcoming events:\n";
+//   foreach ($results->getItems() as $event) {
+//     $start = $event->start->dateTime;
+//     if (empty($start)) {
+//       $start = $event->start->date;
+//     }
+//     printf("%s (%s)\n", $event->getSummary(), $start);
+//   }
+// }
+
+//List of calendars
+$calendarList = $service->calendarList->listCalendarList();
+
+$calendars = array();
+
+while(true) {
+  foreach ($calendarList->getItems() as $calendarListEntry) {
+    array_push($calendars, $calendarListEntry->getId());
+  }
+
+  for($i = 0; $i < count($calendars); $i++) {
+
+    print_r($service->events->listEvents($calendars[$i]));
+  }
+
+  $pageToken = $calendarList->getNextPageToken();
+  if ($pageToken) {
+    $optParams = array('pageToken' => $pageToken);
+    $calendarList = $service->calendarList->listCalendarList($optParams);
+  } else {
+    break;
   }
 }
+
+?>
