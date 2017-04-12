@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
+
 define('APPLICATION_NAME', 'Google Calendar API PHP Quickstart');
 define('CREDENTIALS_PATH', '~/.credentials/calendar-php-quickstart.json');
 define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
@@ -69,4 +70,29 @@ function expandHomeDirectory($path) {
   return str_replace('~', realpath($homeDirectory), $path);
 }
 
-?>
+// Get the API client and construct the service object.
+$client = getClient();
+$service = new Google_Service_Calendar($client);
+
+// Print the next 10 events on the user's calendar.
+$calendarId = 'primary';
+$optParams = array(
+  'maxResults' => 10,
+  'orderBy' => 'startTime',
+  'singleEvents' => TRUE,
+  'timeMin' => date('c'),
+);
+$results = $service->events->listEvents($calendarId, $optParams);
+
+if (count($results->getItems()) == 0) {
+  print "No upcoming events found.\n";
+} else {
+  print "Upcoming events:\n";
+  foreach ($results->getItems() as $event) {
+    $start = $event->start->dateTime;
+    if (empty($start)) {
+      $start = $event->start->date;
+    }
+    printf("%s (%s)\n", $event->getSummary(), $start);
+  }
+}
