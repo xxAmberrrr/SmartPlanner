@@ -6,10 +6,17 @@
     $service = new Google_Service_Calendar($client);
 
     $name = 'testTask';
+    $planningTimeAvailable;
     $deadline;
     $timeNeeding;
     $daysNeeding = 3;
     $priority = 'high';
+
+    //To do: 
+    //check date function php to set date deadline,
+    //check random php,
+    //plan between $planningTimeAvailable (9 to 5),
+    //plan random in the weeks till $deadline
 
     $calendarId = 'csj8vhvrbdsl01m8vnjihpfve4@group.calendar.google.com';
 
