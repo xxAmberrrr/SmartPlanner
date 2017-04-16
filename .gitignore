@@ -1,6 +1,5 @@
-/vendor
-/node_modules
-/public/storage
-Homestead.yaml
-Homestead.json
-.env
+vendor
+client_secret.json
+composer.json
+composer.lock
+composer.phar
