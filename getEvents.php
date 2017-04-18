@@ -35,35 +35,46 @@
     // }
 
     //For every calendar in calendarsSelected show the events
-    for($i = 0; $i < count($calendarsSelected); $i++) {
-        $results = $service->events->listEvents($calendarsSelected[$i], $optParams);
+        for($i = 0; $i < count($calendarsSelected); $i++) {
+            $results = $service->events->listEvents($calendarsSelected[$i], $optParams);
 
-        foreach($results->getItems() as $event) {
-        $start = null;
+            foreach($results->getItems() as $event) {
+            $start = null;
+            $end = null;
 
-        if(isset($event->start->dateTime)) {
-            $start = $event->start->dateTime;
-        }
+            if(isset($event->start->dateTime)) {
+                $start = $event->start->dateTime;
+            }
 
-        if(empty($start)) {
-            if(isset($event->start->date)) {
-            $start = $event->start->date;
+            if(isset($event->end->dateTime)) {
+                $end = $event->end->dateTime;
+            }
+
+            if(empty($start)) {
+                if(isset($event->start->date)) {
+                    $start = $event->start->date;
+                }
+            }
+            
+            if(empty($end)) {
+                if(isset($event->end->date)) {
+                    $end = $event->end->date;
+                }
+            }
+
+            //printf("%s (%s)(%s)\n", $event->getSummary(), $start, $end);
             }
         }
 
-        printf("%s (%s)\n", $event->getSummary(), $start);
+        $pageToken = $calendarList->getNextPageToken();
+
+        if ($pageToken) {
+            $optParams = array('pageToken' => $pageToken);
+            $calendarList = $service->calendarList->listCalendarList($optParams);
+        } 
+
+        else {
+            break;
         }
-    }
-
-    $pageToken = $calendarList->getNextPageToken();
-
-    if ($pageToken) {
-        $optParams = array('pageToken' => $pageToken);
-        $calendarList = $service->calendarList->listCalendarList($optParams);
-    } 
-
-    else {
-        break;
-    }
     }
 ?>
