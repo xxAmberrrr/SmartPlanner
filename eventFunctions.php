@@ -102,7 +102,8 @@
                 }
             }
 
-            printf("%s (%s)(%s)\n", $event->getSummary(), $start, $end);
+            return $start;
+            //printf("%s (%s)(%s)\n", $event->getSummary(), $start, $end);
             }
         }
 
