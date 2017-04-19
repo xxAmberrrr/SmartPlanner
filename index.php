@@ -22,7 +22,6 @@
 
     $query = $service->freebusy->query($freebusy);
 
-
-    var_dump($query);
+    var_dump($query->getCalendars()->busy);
 
 ?>
