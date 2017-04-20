@@ -32,23 +32,23 @@
     $querySchedule = $query->getCalendars()["228iua7de1js8if439cgsgk4dc@group.calendar.google.com"]["modelData"]["busy"];
 
     for($i = 0; $i < count($queryWork); $i++) {
-        var_dump($queryWork[$i]["start"]);
-        var_dump($queryWork[$i]["end"]);
+        $workStart = $queryWork[$i]["start"];
+        $workEnd = $queryWork[$i]["end"];
     }
 
     for($i = 0; $i < count($querySmartPlanner); $i++) {
-        var_dump($querySmartPlanner[$i]["start"]);
-        var_dump($querySmartPlanner[$i]["end"]);
+        $smartPlannerStart = $querySmartPlanner[$i]["start"];
+        $smartPlannerEnd = $querySmartPlanner[$i]["end"];
     }
 
     for($i = 0; $i < count($querySchool); $i++) {
-        var_dump($querySchool[$i]["start"]);
-        var_dump($querySchool[$i]["end"]);
+        $schoolStart = $querySchool[$i]["start"];
+        $schoolEnd = $querySchool[$i]["end"];
     }
 
     for($i = 0; $i < count($querySchedule); $i++) {
-        var_dump($querySchedule[$i]["start"]);
-        var_dump($querySchedule[$i]["end"]);
+        $scheduleStart = $querySchedule[$i]["start"];
+        $scheduleEnd = $querySchedule[$i]["end"];
     }
 
     //var_dump($queryWork);
