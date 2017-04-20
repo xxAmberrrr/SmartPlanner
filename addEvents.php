@@ -2,6 +2,7 @@
 
     //require 'quickstart.php';
     require 'getEvents.php';
+    require 'index.php';
 
    // $name = 'testTask';
     $planningTimeAvailable;
@@ -54,7 +55,7 @@
         }
     }
 
-    addEvent('Test task Amber', 4, '2017-04-28', '09:00:00', '17:00:00');
+    addEvent($_POST['taskName'], $_POST['days'], $_POST['deadline'], '09:00:00', '17:00:00');
 
     
 
