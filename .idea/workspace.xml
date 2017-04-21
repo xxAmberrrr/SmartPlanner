@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9b90878-fe1d-4a58-9a79-1aad40dc4da3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addEvents.php" afterPath="$PROJECT_DIR$/addEvents.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/getFreeBusy.php" afterPath="$PROJECT_DIR$/getFreeBusy.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,10 +60,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addEvents.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addEvents.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addEvents.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="644">
               <caret line="108" column="18" lean-forward="false" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
               <folding />
             </state>
@@ -82,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="37" column="29" lean-forward="false" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+            <state relative-caret-position="633">
+              <caret line="42" column="78" lean-forward="false" selection-start-line="42" selection-start-column="78" selection-end-line="42" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -113,9 +111,9 @@
         <option value="$PROJECT_DIR$/getEvents.php" />
         <option value="$PROJECT_DIR$/eventFunctions.php" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/getFreeBusy.php" />
         <option value="$PROJECT_DIR$/addEvents.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -374,12 +372,12 @@
       <workItem from="1492689476779" duration="727000" />
       <workItem from="1492690260307" duration="7662000" />
       <workItem from="1492702172051" duration="2185000" />
-      <workItem from="1492758697320" duration="7491000" />
+      <workItem from="1492758697320" duration="9905000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33276000" />
+    <option name="totallyTimeSpent" value="35690000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -735,14 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="37" column="29" lean-forward="false" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/getFreeBusy.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
@@ -761,8 +751,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addEvents.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
+        <state relative-caret-position="644">
           <caret line="108" column="18" lean-forward="false" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="42" column="78" lean-forward="false" selection-start-line="42" selection-start-column="78" selection-end-line="42" selection-end-column="78" />
           <folding />
         </state>
       </provider>
