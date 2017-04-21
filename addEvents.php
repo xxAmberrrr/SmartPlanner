@@ -1,13 +1,13 @@
 <?php
 
-    //require 'quickstart.php';
-    require 'getEvents.php';
+    require 'quickstart.php';
+    //require 'getEvents.php';
     require 'index.php';
 
    // $name = 'testTask';
-    $planningTimeAvailable;
+    //$planningTimeAvailable;
     //$deadline = '2017-04-28';
-    $timeNeeding;
+    //$timeNeeding;
    // $daysNeeding = 3;
     //$dateNow = date('Y-m-d');
 
@@ -58,24 +58,27 @@
     $querySchool = $query->getCalendars()["ihl73aqpljlu9u67srth0657s8@group.calendar.google.com"]["modelData"]["busy"];
     $querySchedule = $query->getCalendars()["228iua7de1js8if439cgsgk4dc@group.calendar.google.com"]["modelData"]["busy"];
 
+    $scheduleStart = [];
+    $scheduleEnd = [];
+
     for($i = 0; $i < count($queryWork); $i++) {
-        $workStart = $queryWork[$i]["start"];
-        $workEnd = $queryWork[$i]["end"];
+        array_push($scheduleStart, $queryWork[$i]["start"]);
+        array_push($scheduleStart, $queryWork[$i]["end"]);
     }
 
     for($i = 0; $i < count($querySmartPlanner); $i++) {
-        $smartPlannerStart = $querySmartPlanner[$i]["start"];
-        $smartPlannerEnd = $querySmartPlanner[$i]["end"];
+        array_push($scheduleStart, $querySmartPlanner[$i]["start"]);
+        array_push($scheduleStart, $querySmartPlanner[$i]["end"]);
     }
 
     for($i = 0; $i < count($querySchool); $i++) {
-        $schoolStart = $querySchool[$i]["start"];
-        $schoolEnd = $querySchool[$i]["end"];
+        array_push($scheduleStart, $querySchool[$i]["start"]);
+        array_push($scheduleStart, $querySchool[$i]["end"]);
     }
 
     for($i = 0; $i < count($querySchedule); $i++) {
-        $scheduleStart = $querySchedule[$i]["start"];
-        $scheduleEnd = $querySchedule[$i]["end"];
+        array_push($scheduleStart, $querySchedule[$i]["start"]);
+        array_push($scheduleEnd, $querySchedule[$i]["end"]);
     }
     
     function addEvent($eventName, $days, $deadline, $minTime, $maxTime, $scheduleStart, $scheduleEnd) {
@@ -86,25 +89,74 @@
 
         for($i = 0; $i < $days; $i++) {
             $dateStart = rand_date(date('Y-m-d'), $deadline, $minTime, $maxTime);
+            $dateEnd = date('Y-m-d\TH:i:s',strtotime('+2 hours',strtotime($dateStart)));
+
+            //<-
+            $dateStartToTime = new DateTime($dateStart);
+            $dateStartUnix = $dateStartToTime->getTimestamp();
+
+            $dateEndToTime = new DateTime($dateEnd);
+            $dateEndUnix = $dateEndToTime->getTimestamp();
+
+            $overlap = false;
+
+            $amount = min(count($scheduleStart), count($scheduleEnd));
+
+            for ($j = 0; $j < $amount; $j++)
+            {
+                $scheduleStartToTime = new DateTime($scheduleStart[$j]);
+                $scheduleStartUnix = $scheduleStartToTime->getTimeStamp();
+                //var_dump($scheduleStartUnix);
+
+                $scheduleEndToTime = new DateTime($scheduleEnd[$j]);
+                $scheduleEndUnix = $scheduleEndToTime->getTimestamp();
+
+                if($dateStartUnix > $scheduleStartUnix && $dateStartUnix < $scheduleEndUnix) {
+                    $overlap = true;
+                    var_dump($dateStartUnix);
+                    var_dump($scheduleStartUnix);
+                    var_dump($scheduleEndUnix);
+                }
+
+                elseif($dateEndUnix > $scheduleEndUnix && $dateEndUnix < $scheduleEndUnix) {
+                    $overlap = true;
+                    var_dump($dateStartUnix);
+                    var_dump($dateEndUnix);
+                    var_dump($scheduleStartUnix);
+                    var_dump($scheduleEndUnix);
+                }
+
+                elseif($dateStartUnix < $scheduleStartUnix && $dateEndUnix > $scheduleStartUnix) {
+                    $overlap = true;
+                    var_dump($dateStartUnix);
+                    var_dump($scheduleStartUnix);
+                    var_dump($dateEndUnix);
+                }
+
+                elseif($dateStartUnix < $scheduleEndUnix && $dateEndUnix > $scheduleEndUnix) {
+                    $overlap = true;
+                    var_dump($dateStartUnix);
+                    var_dump($dateEndUnix);
+                    var_dump($scheduleEndUnix);
+                }
+            }
 
             $event = new Google_Service_Calendar_Event(array(
-                'summary' => $eventName,
+                'summary' => $eventName . ($overlap? "Overlaps" : "Doesn't overlap"),
                 'start' => array(
                     'dateTime' => $dateStart,
                     'timeZone' => 'Europe/Amsterdam',
                 ),
                 'end' => array(
-                    'dateTime' => date('Y-m-d\TH:i:s',strtotime('+2 hours',strtotime($dateStart))),
+                    'dateTime' => $dateEnd,
                     'timeZone' => 'Europe/Amsterdam',
                 ),
             ));
 
-            if(($dateStart > $scheduleStart && $dateStart < $scheduleEnd)) {
-                error_log("This is a error");
-            }
-            else {
+            if(!$overlap)
+            {
                 $event = $service->events->insert($calendarId, $event);
-                printf('Event(s) created: %s\n', $event->htmlLink);
+                printf('Events have been created');
             }
         }
     }

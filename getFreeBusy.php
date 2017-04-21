@@ -51,9 +51,9 @@
         $scheduleEnd = $querySchedule[$i]["end"];
     }
 
-    //var_dump($queryWork);
-    //var_dump($querySmartPlanner);
-    //var_dump($querySchool);
-    //var_dump($scheduleCal);
+    var_dump($queryWork);
+    var_dump($querySmartPlanner);
+    var_dump($querySchool);
+    var_dump($scheduleCal);
 
 ?>
